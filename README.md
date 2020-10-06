@@ -13,7 +13,7 @@ Based on Tonnie78 (Tonnie Oostbeek) his Lua GPS Widget project https://github.co
 Creates a Horus Widget to show Plane location on a map that is placed on the screen as an image
 
 
-![alt text](https://github.com/Hobby4life/GPSMap/main/GPSMap.png)
+![alt text](https://github.com/Hobby4life/GPSMap/blob/main/GPSMap.png)
 
 https://youtu.be/QPWba8dwc1w
 
@@ -49,7 +49,7 @@ When the plane is outside visibility of the 3 Map zoom range, "OUT OF RANGE" mes
 
 **3.** Setting up widget settings**
 
-![alt text](https://github.com/Hobby4life/GPSMap/main/widgetsettings.png)
+![alt text](https://github.com/Hobby4life/GPSMap/blob/main/widgetsettings.png)
 
  **ResetAll** - Define a source for trigger a reset of al max values and set new HomePoint
  
