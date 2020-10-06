@@ -55,7 +55,7 @@
 
 local Version     = "v3.2a"  -- Current version
   
-TotalMaps   =  1       -- Enter the amount of maps loaded, starts with 0 !!!! (Toggle between 0 and 1 are 2 maps)
+TotalMaps   =  2       -- Enter the amount of maps loaded, starts with 0 !!!! (Toggle between 0 and 1 are 2 maps)
 
 
 local options = {
@@ -202,6 +202,54 @@ map.North.xlarge = 52.630225
 map.South.xlarge = 52.616053
 map.West.xlarge = 4.932452
 map.East.xlarge = 4.97365
+-- No Fly Zone screen coordinates for extra large map--
+map.poly.xlarge = {{0,0}, {0,0}, {0,0}, {0,0}, {0,0}}
+
+elseif LoadMap == 2 then
+
+-- PEGASUS ZOOM
+
+-- coordinates for the extra small map.
+map.North.xsmall = 52.732762
+map.South.xsmall = 52.73232
+map.West.xsmall = 5.274709
+map.East.xsmall = 5.275997
+-- No Fly Zone screen coordinates for extra small map--
+map.poly.xsmall = {{0,0}, {0,0}, {0,0}, {0,0}, {0,0}}
+
+
+-- coordinates for the small map.
+map.North.small = 52.732983
+map.South.small = 52.732099
+map.West.small = 5.274066
+map.East.small = 5.27664
+-- No Fly Zone screen coordinates for small map--
+map.poly.small = {{0,0}, {0,0}, {0,0}, {0,0}, {0,0}}
+
+
+-- coordinates for the medium map.
+map.North.medium = 52.733425
+map.South.medium = 52.731657
+map.West.medium = 5.272778
+map.East.medium = 5.277928
+-- No Fly Zone screen coordinates for medium map--
+map.poly.medium = {{0,0}, {0,0}, {0,0}, {0,0}, {0,0}}
+
+
+-- coordinates for the large map.
+map.North.large = 52.734308
+map.South.large = 52.730774
+map.West.large = 5.270203
+map.East.large = 5.280503
+-- No Fly Zone screen coordinates for large map--
+map.poly.large = {{0,0}, {0,0}, {0,0}, {0,0}, {0,0}}
+
+
+-- coordinates for the extra large map.
+map.North.xlarge = 52.736075
+map.South.xlarge = 52.729007
+map.West.xlarge = 5.265053
+map.East.xlarge = 5.285653
 -- No Fly Zone screen coordinates for extra large map--
 map.poly.xlarge = {{0,0}, {0,0}, {0,0}, {0,0}, {0,0}}
 
