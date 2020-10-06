@@ -47,10 +47,13 @@
 ---- #        Added checking of model position inside polygon, and callout in all flight modes used           #
 ---- # v3.2   Changed the plane symbol into a more visible triangular shape                                   #
 ---- #        Added Satellite count fix for openxsensor sensors                                               #
+---- # v3.2a  Changed the Triangular shape into Arrow                                                         #
+---- #                                                                                                        #
+---- #                                                                                                        #
 ---- #                                                                                                        #
 ---- ##########################################################################################################
 
-local Version     = "v3.2"  -- Current version
+local Version     = "v3.2a"  -- Current version
   
 TotalMaps   =  1       -- Enter the amount of maps loaded, starts with 0 !!!! (Toggle between 0 and 1 are 2 maps)
 
@@ -60,6 +63,7 @@ local options = {
   { "Imperial"  , VALUE   , 0,0,1 },  --Toggle between Metric or Imperial notation, note that correct settings have to be set on the sensor page too!
   { "LosLine"   , VALUE   , 0,0,1 },  --Enable / Disable line of sight line between Home point and plane. 0 = off, 1 = on
   { "MapSelect" , VALUE   , 0,0,TotalMaps },  --Selects Map to load, needs model change or power cycle to take effect, 0 correnspondents to map0small.png, map0medium.png and map0large.png etc...
+  { "ArrowClr"  , COLOR   , COLOR  , GREEN },
 }
 
 
@@ -546,18 +550,21 @@ end
   -- Front of arrow
   xvalues.ax = x + (10 * math.sin(math.rad(headingDeg)))
   yvalues.ay = y - (10 * math.cos(math.rad(headingDeg)))
+
   
   -- Center rear of arrow
   xvalues.jx = x - (10 * math.sin(math.rad(headingDeg)))
   yvalues.jy = y + (10 * math.cos(math.rad(headingDeg)))
+ 
   
   
   
   -- Left Outer side of arrow
   xvalues.bx = xvalues.jx - (8 * math.sin(math.rad(headingDeg - 90)))
-  
-  -- Left part of arrow
   yvalues.by = yvalues.jy + (8 * math.cos(math.rad(headingDeg - 90)))
+
+ 
+  -- Left part of arrow
   xvalues.cx = xvalues.jx - (7 * math.sin(math.rad(headingDeg - 90)))
   yvalues.cy = yvalues.jy + (7 * math.cos(math.rad(headingDeg - 90)))
   xvalues.dx = xvalues.jx - (6 * math.sin(math.rad(headingDeg - 90)))
@@ -566,20 +573,8 @@ end
   yvalues.ey = yvalues.jy + (5 * math.cos(math.rad(headingDeg - 90)))
   xvalues.fx = xvalues.jx - (4 * math.sin(math.rad(headingDeg - 90)))
   yvalues.fy = yvalues.jy + (4 * math.cos(math.rad(headingDeg - 90)))
-  xvalues.gx = xvalues.jx - (3 * math.sin(math.rad(headingDeg - 90)))
-  yvalues.gy = yvalues.jy + (3 * math.cos(math.rad(headingDeg - 90)))
-  xvalues.hx = xvalues.jx - (2 * math.sin(math.rad(headingDeg - 90)))
-  yvalues.hy = yvalues.jy + (2 * math.cos(math.rad(headingDeg - 90)))
-  xvalues.ix = xvalues.jx - (1 * math.sin(math.rad(headingDeg - 90)))
-  yvalues.iy = yvalues.jy + (1 * math.cos(math.rad(headingDeg - 90)))
-    
+  
   -- Right part of arrow
-  xvalues.kx = xvalues.jx - (1 * math.sin(math.rad(headingDeg + 90)))
-  yvalues.ky = yvalues.jy + (1 * math.cos(math.rad(headingDeg + 90)))
-  xvalues.lx = xvalues.jx - (2 * math.sin(math.rad(headingDeg + 90)))
-  yvalues.ly = yvalues.jy + (2 * math.cos(math.rad(headingDeg + 90)))
-  xvalues.mx = xvalues.jx - (3 * math.sin(math.rad(headingDeg + 90)))
-  yvalues.my = yvalues.jy + (3 * math.cos(math.rad(headingDeg + 90)))
   xvalues.nx = xvalues.jx - (4 * math.sin(math.rad(headingDeg + 90)))
   yvalues.ny = yvalues.jy + (4 * math.cos(math.rad(headingDeg + 90)))
   xvalues.ox = xvalues.jx - (5 * math.sin(math.rad(headingDeg + 90)))
@@ -588,11 +583,38 @@ end
   yvalues.py = yvalues.jy + (6 * math.cos(math.rad(headingDeg + 90)))
   xvalues.qx = xvalues.jx - (7 * math.sin(math.rad(headingDeg + 90)))
   yvalues.qy = yvalues.jy + (7 * math.cos(math.rad(headingDeg + 90)))
-  xvalues.rx = xvalues.jx - (8 * math.sin(math.rad(headingDeg + 90)))
-  
+
   -- Right Outer side of arrow
+  xvalues.rx = xvalues.jx - (8 * math.sin(math.rad(headingDeg + 90)))
   yvalues.ry = yvalues.jy + (8 * math.cos(math.rad(headingDeg + 90)))
+
   
+  
+--draw background  
+  lcd.drawBitmap(thisWidget.map.bmp[thisWidget.map.current], thisWidget.zone.x -10, thisWidget.zone.y -10)
+
+  lcd.setColor(CUSTOM_COLOR, lcd.RGB(248,0,0))
+  if PlaneVisible == 1 then
+  -- Draw nofly zone polygon -- in RED color
+    drawNoFly(thisWidget)
+  -- Draws plane --
+    lcd.setColor(CUSTOM_COLOR, thisWidget.options.ArrowClr)
+    
+    -- Left side
+    lcd.drawLine(xvalues.bx, yvalues.by, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+    lcd.drawLine(xvalues.cx, yvalues.cy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+    lcd.drawLine(xvalues.dx, yvalues.dy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+    lcd.drawLine(xvalues.ex, yvalues.ey, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+    lcd.drawLine(xvalues.fx, yvalues.fy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+  
+    -- Right side
+    lcd.drawLine(xvalues.nx, yvalues.ny, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+    lcd.drawLine(xvalues.ox, yvalues.oy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+    lcd.drawLine(xvalues.px, yvalues.py, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+    lcd.drawLine(xvalues.qx, yvalues.qy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+    lcd.drawLine(xvalues.rx, yvalues.ry, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
+  end
+
 -- Preset info
 	if LCD_Lat > 0 then
 		NS = "N" 
@@ -613,49 +635,6 @@ end
 		FM  = "m"
 		SPD = "km/h"
 	end  
-  
-  
---draw background  
-  lcd.drawBitmap(thisWidget.map.bmp[thisWidget.map.current], thisWidget.zone.x -10, thisWidget.zone.y -10)
-
-  lcd.setColor(CUSTOM_COLOR, lcd.RGB(248,0,0))
-  if PlaneVisible == 1 then
-  -- Draw nofly zone polygon -- in RED color
-    drawNoFly(thisWidget)
-  -- Draws plane --
-    lcd.setColor(CUSTOM_COLOR, lcd.RGB(0,252,0))
-  
-  
-    
-
-    
-    -- Backside
-    lcd.drawLine(xvalues.bx, yvalues.by, xvalues.jx, yvalues.jy, SOLID, CUSTOM_COLOR)
-    
-    -- Left side
-    lcd.drawLine(xvalues.bx, yvalues.by, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.cx, yvalues.cy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.dx, yvalues.dy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.ex, yvalues.ey, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.fx, yvalues.fy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.gx, yvalues.gy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.hx, yvalues.hy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.ix, yvalues.iy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-  
-    -- Center body
-    lcd.drawLine(xvalues.ax, yvalues.ay, xvalues.jx, yvalues.jy, SOLID, CUSTOM_COLOR)
-  
-    -- Right side
-    lcd.drawLine(xvalues.kx, yvalues.ky, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.lx, yvalues.ly, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.mx, yvalues.my, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.nx, yvalues.ny, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.ox, yvalues.oy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.px, yvalues.py, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.qx, yvalues.qy, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-    lcd.drawLine(xvalues.rx, yvalues.ry, xvalues.ax, yvalues.ay, SOLID, CUSTOM_COLOR)
-
-  end
 
 -- Draws the Windsock as Homepoint & display Plane direction angle from Homepoint
   if HomeVisible == 1 then
