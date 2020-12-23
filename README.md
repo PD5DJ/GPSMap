@@ -59,8 +59,6 @@ When the plane is outside visibility of the 3 Map zoom range, "OUT OF RANGE" mes
 
  **MapSelect** - Select Map to load, needs model change or power cycle to take effect, 0 correnspondents to **map0xsmall.png**, **map0small.png**, **map0medium.png**, **map0large.png** and **map0xlarge.png** etc...
 
-Maps can be generated at the following page: https://hobby4life.nl/mapgen
-
 In the **main.lua** file
 
 Look for the following lines:
