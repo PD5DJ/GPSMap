@@ -4,8 +4,8 @@ Note:
 Based on Tonnie78 (Tonnie Oostbeek) his Lua GPS Widget project https://github.com/Tonnie78/Lua-GPS-Widget
 
 
-
-
+---------
+ ## SUPPORT DISCONTINUED!
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
